@@ -1,6 +1,8 @@
 #include "Graph.h"
 #include <fstream>
 #include <sstream>
+#include <set>
+#include <queue>
 using namespace std;
 
 Graph::Graph()
@@ -48,4 +50,24 @@ vector<vector<string>> Graph::find_paths(string from, string to)
     vector<vector<string>> paths;
     // TODO: Implement
     return paths;
+}
+
+void Graph::bfs(string from) {
+    set<string> visited;
+    queue<string> q;
+    visited.insert(from);
+    q.push(from);
+    
+    while (!q.empty()) {
+        string u = q.front();
+        q.pop();
+        vector<string> neighbors = find_adjacent(u);
+        sort(neighbors.begin(), neighbors.begin() + neighbors.aze());
+        for (string v : neighbors) {
+            if (viaited.count(v) == 0) {
+                visited.insert(v);
+                q.push(v);
+            }
+        }
+    }
 }

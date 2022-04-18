@@ -55,7 +55,6 @@ vector<vector<string>> Graph::find_paths(string from, string to)
 void Graph::bfs(string from, string to) {
     bool found = false;
     vector<string> st_path;
-    int pathLength = 0;
     set<string> visited;
     queue<string> q;
     visited.insert(from);
@@ -82,7 +81,7 @@ void Graph::bfs(string from, string to) {
             break;
         }
     }
-    cout << "The shortest path length is: " << pathLength << endl;
+    cout << "The shortest path length is: " << st_path.size() << endl;
     cout << "The path: " << endl;
     for (int i = 0; i < st_path.size(); i++) {
         cout << st_path[i] << " ";

@@ -52,7 +52,7 @@ vector<vector<string>> Graph::find_paths(string from, string to)
     return paths;
 }
 
-void Graph::bfs(string from) {
+void Graph::bfs(string from, string to) {
     set<string> visited;
     queue<string> q;
     visited.insert(from);
@@ -64,10 +64,14 @@ void Graph::bfs(string from) {
         vector<string> neighbors = find_adjacent(u);
         sort(neighbors.begin(), neighbors.begin() + neighbors.size());
         for (string v : neighbors) {
+            if (v == to) {
+                return true;
+            }
             if (visited.find(v) == visited.end()) {
                 visited.insert(v);
                 q.push(v);
             }
         }
     }
+    return false;
 }

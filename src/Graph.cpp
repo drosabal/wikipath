@@ -81,9 +81,14 @@ void Graph::bfs(string from, string to) {
             break;
         }
     }
-    cout << "The shortest path length is: " << st_path.size() << endl;
-    cout << "The path: " << endl;
-    for (int i = 0; i < st_path.size(); i++) {
-        cout << st_path[i] << " ";
+    if (found == true) {
+        cout << "The shortest path length is: " << st_path.size() << endl;
+        cout << "The path: " << endl;
+        for (int i = 0; i < st_path.size(); i++) {
+            cout << st_path[i] << " ";
+        }
+    } else {
+        cout << "There is no valid path between " << from << " and " << to << "." << endl;
     }
+    
 }

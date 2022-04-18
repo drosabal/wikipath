@@ -64,7 +64,7 @@ void Graph::bfs(string from) {
         vector<string> neighbors = find_adjacent(u);
         sort(neighbors.begin(), neighbors.begin() + neighbors.size());
         for (string v : neighbors) {
-            if (viaited.count(v) == 0) {
+            if (visited.find(v) == visited.end()) {
                 visited.insert(v);
                 q.push(v);
             }

@@ -29,8 +29,8 @@ int main()
             valid_search = false;
         }
         if (valid_search) {
-            vector<vector<string>> paths = graph.find_paths(from, to);
-            // TODO: Output found paths
+            //vector<vector<string>> paths = graph.find_paths(from, to);
+            graph.bfs(from, to);
         }
 
         cout << "Press ENTER to search again or Q to quit: ";

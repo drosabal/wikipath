@@ -52,7 +52,10 @@ vector<vector<string>> Graph::find_paths(string from, string to)
     return paths;
 }
 
-bool Graph::bfs(string from, string to) {
+void Graph::bfs(string from, string to) {
+    bool found = false;
+    vector<string> st_path;
+    int pathLength = 0;
     set<string> visited;
     queue<string> q;
     visited.insert(from);
@@ -65,13 +68,23 @@ bool Graph::bfs(string from, string to) {
         sort(neighbors.begin(), neighbors.begin() + neighbors.size());
         for (string v : neighbors) {
             if (v == to) {
-                return true;
+                found = true;
+                break;
             }
             if (visited.find(v) == visited.end()) {
                 visited.insert(v);
                 q.push(v);
+                pathLength++;
+                st_path.push_back(v);
             }
         }
+        if (found == true) {
+            break;
+        }
     }
-    return false;
+    cout << "The shortest path length is: " << pathLength << endl;
+    cout << "The path: " << endl;
+    for (int i = 0; i < st_path.size(); i++) {
+        cout << st_path[i] << " ";
+    }
 }

@@ -52,7 +52,7 @@ vector<vector<string>> Graph::find_paths(string from, string to)
     return paths;
 }
 
-void Graph::bfs(string from, string to) {
+bool Graph::bfs(string from, string to) {
     set<string> visited;
     queue<string> q;
     visited.insert(from);

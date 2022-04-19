@@ -4,11 +4,12 @@ using namespace std;
 
 int main()
 {
-    cout << "Loading...";
+    cout << "Loading..." << endl;
     Graph graph;
-    cout << endl << endl;
+    cout << endl;
     cout << "Welcome to WikiPath! Enter the titles of any two Wikipedia articles (including underscores)." << endl;
     cout << "Article titles are case sensitive and can be found in the page's URL. Ex: https://en.wikipedia.org/wiki/ARTICLE_TITLE_HERE" << endl;
+    cout << "Note: Titles with special characters are not supported on Windows and will not be displayed properly." << endl;
 
     string loop;
     while (loop != "q" && loop != "Q") {

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "Graph.h"
 using namespace std;
 
@@ -6,6 +7,7 @@ int main()
 {
     cout << "Loading..." << endl;
     Graph graph;
+    vector<string> st_path;
     cout << endl;
     cout << "Welcome to WikiPath! Enter the titles of any two Wikipedia articles (including underscores)." << endl;
     cout << "Article titles are case sensitive and can be found in the page's URL. Ex: https://en.wikipedia.org/wiki/ARTICLE_TITLE_HERE" << endl;
@@ -31,7 +33,7 @@ int main()
         }
         if (valid_search) {
             //vector<vector<string>> paths = graph.find_paths(from, to);
-            graph.bfs(from, to);
+            graph.bfs(st_path, from, to);
         }
 
         cout << "Press ENTER to search again or Q to quit: ";

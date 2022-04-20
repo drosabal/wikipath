@@ -16,5 +16,5 @@ public:
     void insert(string from, string to); // Adds an edge to the graph (from-to)
     vector<string> find_adjacent(string page_title); // Returns the pages adjacent to the given page from wikilinks.txt
     vector<vector<string>> find_paths(string from, string to); // Finds all paths of the shortest possible length and returns them
-    void bfs(string from, string to); //helper function that runs a breadth-first search on the information passed to it
+    void bfs(vector<string>& st_path, string from, string to); //helper function that runs a breadth-first search on the information passed to it
 }; 

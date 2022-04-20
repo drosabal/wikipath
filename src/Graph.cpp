@@ -63,6 +63,7 @@ void Graph::bfs(string from, string to) {
     while (!q.empty()) {
         string u = q.front();
         q.pop();
+        st_path.push_back(u);
         vector<string> neighbors = find_adjacent(u);
         sort(neighbors.begin(), neighbors.begin() + neighbors.size());
         for (string v : neighbors) {
@@ -73,8 +74,6 @@ void Graph::bfs(string from, string to) {
             if (visited.find(v) == visited.end()) {
                 visited.insert(v);
                 q.push(v);
-                pathLength++;
-                st_path.push_back(v);
             }
         }
         if (found == true) {

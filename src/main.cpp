@@ -33,7 +33,16 @@ int main()
         }
         if (valid_search) {
             //vector<vector<string>> paths = graph.find_paths(from, to);
-            graph.bfs(st_path, from, to);
+            bool found = graph.bfs(st_path, from, to);
+            if (found == true) {
+                cout << "The shortest path length is: " << st_path.size() << endl;
+                cout << "The path: " << endl;
+                for (int i = 0; i < st_path.size(); i++) {
+                    cout << st_path[i] << " ";
+                }
+            } else {
+                cout << "There is no valid path between " << from << " and " << to << "." << endl;
+            }
         }
 
         cout << "Press ENTER to search again or Q to quit: ";

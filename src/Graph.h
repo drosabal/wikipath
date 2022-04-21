@@ -8,6 +8,7 @@ class Graph
 {
     unordered_map<string, vector<string>> adj_list; // Adjacency list to represent graph
     unordered_map<string, int> page_id; // Maps each page title to a unique page ID
+    unordered_map<string, string> parent;
 
 public:
     Graph(); // Generates the page_id map from wikilinks.txt, where each ID is the page's line number
@@ -15,6 +16,6 @@ public:
     bool page_exists(string page_title); // Returns true if the page appears in the page_id map
     void insert(string from, string to); // Adds an edge to the graph (from-to)
     vector<string> find_adjacent(string page_title); // Returns the pages adjacent to the given page from wikilinks.txt
-    vector<vector<string>> find_paths(string from, string to); // Finds all paths of the shortest possible length and returns them
-    bool bfs(vector<string>& st_path, string from, string to); //helper function that runs a breadth-first search on the information passed to it
-}; 
+    vector<string> bfs(string from, string to); //helper function that runs a breadth-first search on the information passed to it
+    vector<string> backtrace(string from, string to);
+};

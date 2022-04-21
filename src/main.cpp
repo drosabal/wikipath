@@ -34,7 +34,7 @@ int main()
             vector<string> path = graph.bfs(from, to);
             if (path.size() > 1) {
                 cout << "The shortest path length is: " << path.size() << endl;
-                cout << "The path: " << endl;
+                cout << "The path: ";
                 for (int i = path.size() - 1; i >= 0; i--) {
                     cout << path[i] << " ";
                 }

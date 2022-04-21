@@ -24,16 +24,25 @@ bool Graph::page_exists(string page_title)
 {
     return (page_id.find(page_title) != page_id.end());
 }
-void Graph::insert(string from, string to)
+string Graph::get_page_title(int id)
 {
-    adj_list[from].push_back(to);
-}
-vector<string> Graph::find_adjacent(string page_title)
-{
-    vector<string> adjacent;
     string line;
     ifstream file("wikilinks.txt");
-    for (int i = 0; i < page_id[page_title]; i++) {
+    for (int i = 0; i < id; i++) {
+        getline(file, line);
+    }
+    file.close();
+    istringstream line_stream(line);
+    string title;
+    getline(line_stream, title, '|');
+    return title;
+}
+vector<int> Graph::find_adjacent(int id)
+{
+    vector<int> adjacent;
+    string line;
+    ifstream file("wikilinks.txt");
+    for (int i = 0; i < id; i++) {
         getline(file, line);
     }
     file.close();
@@ -41,13 +50,50 @@ vector<string> Graph::find_adjacent(string page_title)
     string token;
     getline(line_stream, token, '|');
     while (getline(line_stream, token, '|')) {
-        adjacent.push_back(token);
+        adjacent.push_back(page_id[token]);
     }
     return adjacent;
 }
-
+vector<string> Graph::bfs(string from, string to)
+{
+    unordered_set<int> visited;
+    visited.insert(page_id[from]);
+    queue<int> q;
+    q.push(page_id[from]);
+    vector<string> path;
+    
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+        vector<int> neighbors = find_adjacent(u);
+        for (int v : neighbors) {
+            if (visited.count(v) == 0) {
+                source[v] = u;
+                if (v == page_id[to]) {
+                    path = backtrace(from, to);
+                    return path;
+                }
+                visited.insert(v);
+                q.push(v);
+            }
+        }
+    }
+    return path;
+}
+vector<string> Graph::backtrace(string from, string to)
+{
+    vector<string> path;
+    int id;
+    path.push_back(to);
+    while (path[path.size() - 1] != from) {
+        id = page_id[path[path.size() - 1]];
+        path.push_back(get_page_title(source[id]));
+    }
+    return path;
+}
 /*
-bool Graph::bfs(vector<string>& st_path, string from, string to) {
+bool Graph::bfs(vector<string>& st_path, string from, string to)
+{
     //bool found = false;
     //vector<string> st_path;
     set<string> visited;
@@ -74,39 +120,3 @@ bool Graph::bfs(vector<string>& st_path, string from, string to) {
     return false;
 }
 */
-
-vector<string> Graph::bfs(string from, string to)
-{
-    unordered_set<string> visited;
-    visited.insert(from);
-    queue<string> q;
-    q.push(from);
-    vector<string> path;
-    
-    while (!q.empty()) {
-        string u = q.front();
-        q.pop();
-        vector<string> neighbors = find_adjacent(u);
-        for (string v : neighbors) {
-            if (visited.count(v) == 0) {
-                parent[v] = u;
-                if (v == to) {
-                    path = backtrace(from, to);
-                    return path;
-                }
-                visited.insert(v);
-                q.push(v);
-            }
-        }
-    }
-    return path;
-}
-vector<string> Graph::backtrace(string from, string to)
-{
-    vector<string> path;
-    path.push_back(to);
-    while (path[path.size() - 1] != from) {
-        path.push_back(parent[path[path.size() - 1]]);
-    }
-    return path;
-}

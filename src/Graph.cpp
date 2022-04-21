@@ -1,8 +1,8 @@
 #include "Graph.h"
 #include <fstream>
 #include <sstream>
-#include <set>
 #include <queue>
+#include <unordered_set>
 using namespace std;
 
 Graph::Graph()
@@ -45,13 +45,8 @@ vector<string> Graph::find_adjacent(string page_title)
     }
     return adjacent;
 }
-vector<vector<string>> Graph::find_paths(string from, string to)
-{
-    vector<vector<string>> paths;
-    // TODO: Implement
-    return paths;
-}
 
+/*
 bool Graph::bfs(vector<string>& st_path, string from, string to) {
     //bool found = false;
     //vector<string> st_path;
@@ -77,4 +72,41 @@ bool Graph::bfs(vector<string>& st_path, string from, string to) {
         }
     }
     return false;
+}
+*/
+
+vector<string> Graph::bfs(string from, string to)
+{
+    unordered_set<string> visited;
+    visited.insert(from);
+    queue<string> q;
+    q.push(from);
+    vector<string> path;
+    
+    while (!q.empty()) {
+        string u = q.front();
+        q.pop();
+        vector<string> neighbors = find_adjacent(u);
+        for (string v : neighbors) {
+            if (visited.count(v) == 0) {
+                parent[v] = u;
+                if (v == to) {
+                    path = backtrace(from, to);
+                    return path;
+                }
+                visited.insert(v);
+                q.push(v);
+            }
+        }
+    }
+    return path;
+}
+vector<string> Graph::backtrace(string from, string to)
+{
+    vector<string> path;
+    path.push_back(to);
+    while (path[path.size() - 1] != from) {
+        path.push_back(parent[path[path.size() - 1]]);
+    }
+    return path;
 }

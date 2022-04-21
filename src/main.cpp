@@ -7,7 +7,6 @@ int main()
 {
     cout << "Loading..." << endl;
     Graph graph;
-    vector<string> st_path;
     cout << endl;
     cout << "Welcome to WikiPath! Enter the titles of any two Wikipedia articles (including underscores)." << endl;
     cout << "Article titles are case sensitive and can be found in the page's URL. Ex: https://en.wikipedia.org/wiki/ARTICLE_TITLE_HERE" << endl;
@@ -32,14 +31,14 @@ int main()
             valid_search = false;
         }
         if (valid_search) {
-            //vector<vector<string>> paths = graph.find_paths(from, to);
-            bool found = graph.bfs(st_path, from, to);
-            if (found == true) {
-                cout << "The shortest path length is: " << st_path.size() << endl;
+            vector<string> path = graph.bfs(from, to);
+            if (path.size() > 1) {
+                cout << "The shortest path length is: " << path.size() << endl;
                 cout << "The path: " << endl;
-                for (int i = 0; i < st_path.size(); i++) {
-                    cout << st_path[i] << " ";
+                for (int i = path.size() - 1; i >= 0; i--) {
+                    cout << path[i] << " ";
                 }
+                cout << endl;
             } else {
                 cout << "There is no valid path between " << from << " and " << to << "." << endl;
             }
